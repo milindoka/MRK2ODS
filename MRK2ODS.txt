@@ -1,0 +1,62 @@
+=======Libre Office Calc Macros - Read  MRK file into Spreadsheet =======
+
+
+========== Hello world in first row first cell===================
+REM  *****  BASIC  *****
+sub hello_world
+
+	dim document   as object
+	dim dispatcher as object
+	
+	document   = ThisComponent.CurrentController.Frame
+	dispatcher = createUnoService("com.sun.star.frame.DispatchHelper")
+	
+	dim args1(0) as new com.sun.star.beans.PropertyValue
+	dim args2(0) as new com.sun.star.beans.PropertyValue
+	
+	args1(0).Name = "ToPoint"
+	args1(0).Value = "$A$1"
+	dispatcher.executeDispatch(document, ".uno:GoToCell", "", 0, args1())
+	
+	args2(0).Name = "StringName"
+	args2(0).Value = "Hello World!"
+	dispatcher.executeDispatch(document, ".uno:EnterString", "", 0, args2())
+
+   msgbox "Completed!"
+end sub
+==============Simple Loop : Write 0 To 100 in first column ===========
+REM  *****  BASIC  *****
+Sub Main
+End Sub
+
+Sub Macro1
+a="text"
+for c = 0 to 50 step 1
+    a=c
+    ThisComponent.Sheets(0).getCellByPosition(0,c).String = a
+next c
+End Sub
+
+
+===========Split Function===========
+Sub test
+  Dim p As String
+  p1="aa bb  cc   dd"
+  a1=Split(p1," ")
+  Print a1(0)
+  Print a1(1)
+  Print a1(2)
+  Print a1(3)
+End Sub
+
+============Compare===============
+Sub ExampleStrComp
+Dim iVar As Single
+Dim sVar As String
+iVar = 123.123
+sVar = Str$(iVar)
+Msgbox strcomp(sVar , Str$(iVar),1)
+end sub
+
+
+============Loop==================
