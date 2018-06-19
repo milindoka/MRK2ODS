@@ -58,5 +58,56 @@ sVar = Str$(iVar)
 Msgbox strcomp(sVar , Str$(iVar),1)
 end sub
 
+============File Open Dialog==========
+Sub pick_a_file()
+   Dim fName As String
+   fName = open_file()
+   MsgBox fName & chr(10) & ConvertFromUrl(fName)
+End Sub
 
-============Loop==================
+Function open_file() as String
+
+   Dim file_dialog as Object
+   Dim status as Integer
+   Dim file_path as String
+   Dim init_path as String
+   Dim ucb as object
+   Dim filterNames(3) as String
+
+   filterNames(0) = "*.*"
+   filterNames(1) = "*.png"
+   filterNames(2) = "*.jpg"
+
+   GlobalScope.BasicLibraries.LoadLibrary("Tools")
+   file_dialog = CreateUnoService("com.sun.star.ui.dialogs.FilePicker")
+   ucb = createUnoService("com.sun.star.ucb.SimpleFileAccess")
+
+   AddFiltersToDialog(FilterNames(), file_dialog)
+   'Set your initial path here!
+   init_path = ConvertToUrl("/usr")
+
+   If ucb.Exists(init_path) Then
+      file_dialog.SetDisplayDirectory(init_path)
+   End If
+
+   status = file_dialog.Execute()
+   If status = 1 Then
+      file_path = file_dialog.Files(0)
+      open_file = file_path
+   End If
+   file_dialog.Dispose()
+
+End Function
+============== Read Text File ===============
+sub ReadMrkFile
+
+f1 = FreeFile()
+Open "home/milind/j.mrk" for Input as #f1
+r=1
+Do while NOT EOF(f1)
+Line Input #f1, s 
+    ThisComponent.Sheets(0).getCellByPosition(0,r).String = s
+    r=r+1
+Loop
+Close #f1
+End Sub
