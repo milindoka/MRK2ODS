@@ -1,0 +1,26 @@
+REM  *****  BASIC  *****
+
+Sub Main
+
+End Sub
+
+
+
+Function Split1(Optional aStr)
+    t = Split(aStr, ":")
+    Split1=t(0)
+End Function
+
+
+sub ReadMrkFile
+f1 = FreeFile()
+Open "home/milind/j.mrk" for Input as #f1
+r=1
+Do while NOT EOF(f1)
+Line Input #f1, s 
+ 
+    ThisComponent.Sheets(0).getCellByPosition(0,r).String = Split1(s)
+    r=r+1
+Loop
+Close #f1
+End Sub
