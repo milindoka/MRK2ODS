@@ -1,0 +1,58 @@
+REM  *****  BASIC  *****
+
+Sub Main
+
+End Sub
+
+Function Roll(optional Text_From_Cell) as string
+   
+   Numbers_And_Signs = "0123456789 .+-*/"
+   
+   n = len(Text_From_Cell)
+   
+   Roll = ""
+    if instr(Text_From_Cell,"Set")<>0 then exit function
+   For i = 1 to n
+      ActChar = Mid(Text_From_Cell,i,1)
+      if Instr(Numbers_And_Signs,ActChar)<>0 then Roll = Roll + ActChar
+   next i
+
+end function
+
+
+Function Split1(Optional aStr)
+    found=instr(aStr,":")
+      if found>0 then
+     
+      t = Split(aStr, ":")    
+      
+      Split1=Trim(Roll(t(0))
+      
+     else
+    Split1=""
+    endif
+End Function
+
+
+sub ReadMrkFile
+f1 = FreeFile()
+Open "home/milind/j.mrk" for Input as #f1
+r=0
+Do while NOT EOF(f1)
+
+Line Input #f1, s 
+    t=split1(s)
+
+    If t="" then
+       goto again:
+    else
+    
+    ThisComponent.Sheets(0).getCellByPosition(0,r).String = t
+    r=r+1
+    endif
+again:
+Loop
+Close #f1
+End Sub
+
+
