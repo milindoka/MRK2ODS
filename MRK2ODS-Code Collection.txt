@@ -111,3 +111,18 @@ Line Input #f1, s
 Loop
 Close #f1
 End Sub
+
+============Loop Till Empty Cell===================
+
+dim cell as object
+dim i as integer
+
+i = 0
+cell = Sheet.getCellByPosition(i,0)
+
+while Cell.Type <> com.sun.star.table.CellContentType.EMPTY
+    i = i+1
+    cell = Sheet.getCellByPosition(i,0)
+wend
+When the loop ends I get the variable i which corresponds to the column number. I can then convert it to the letter the same way as in excel (chr functions)
+=====================
